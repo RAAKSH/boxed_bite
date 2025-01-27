@@ -1,9 +1,13 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import { Header } from "./Components/Header";
 import { Body } from "./Components/Body";
-import { About } from "./Components/About";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import About from "./Components/About";
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import Error from "./Components/Error";
+//import Contact from "./Components/Contact";
+import RestraurantsMenu from "./Components/RestraurantsMenu";
+import { Shimmer } from './Components/Shimmer';
 
 // const heading = React.createElement(
 //   "h1",
@@ -44,10 +48,12 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 //React Component
 
+const ContactComponent = lazy(() => import("./Components/Contact"));
+
 const AppLayout = () => (
   <div className="app">
     <Header />
-    <Body />
+    <Outlet />
   </div>
 );
 
@@ -57,11 +63,35 @@ const appRouter = createBrowserRouter([
   {
     path: "/",
     element: <AppLayout />,
-  },
-  {
-    path: "/about",
-    element: <About />,
+    errorElement: <Error />,
+    children: [
+      {
+        path: "/",
+        element: <Body />,
+        errorElement: <Error />,
+      },
+      {
+        path: "/about",
+        element: <About />,
+        errorElement: <Error />,
+      },
+      {
+        path: "/contact",
+        element: (
+          <Suspense fallback={<h1>Loaading</h1>}>
+            <ContactComponent />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/restraurantDetails/:id",
+        element: <RestraurantsMenu />,
+        errorElement: <Error />,
+      },
+    ],
   },
 ]);
+
+//root.render(<AppLayout />);
 
 root.render(<RouterProvider router={appRouter} />);

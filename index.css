@@ -77,3 +77,46 @@
 .button-search{
   margin: 5px;
 }
+
+.menu-styles{
+  display: flex;
+}
+
+.user-card{
+  margin: 10px;
+  border: 2px dotted black;
+  display: flex;
+}
+
+.user-img{
+  height: 200px;
+  width: 200px;
+  padding: 10px;
+  border-radius: 50%;
+
+
+
+}
+
+.text{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+
+.status-indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: red;
+  display: inline-block;
+}
+
+.offline {
+  background-color: red;
+}
+
+.offline {
+  background-color: green;
+}

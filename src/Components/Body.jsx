@@ -1,10 +1,12 @@
 import { CardComponent } from "./CardComponent";
 import { useEffect, useState } from "react";
 import { Shimmer } from "./Shimmer";
+import { Link } from "react-router-dom";
+import  useOnlineStatus  from "../Utils/useOnlineStatus";
 
 export const Body = () => {
   const [data, setData] = useState([]);
-  const[filterData,setFilterData]=useState([]);
+  const [filterData, setFilterData] = useState([]);
   const [searchText, setSearchText] = useState("");
   const fetchData = async () => {
     const data = await fetch(
@@ -16,8 +18,7 @@ export const Body = () => {
     const slicedArray = dataJson?.data?.cards.slice(3);
 
     setData(slicedArray);
-    setFilterData(slicedArray); 
-    
+    setFilterData(slicedArray);
   };
 
   useEffect(() => {
@@ -44,35 +45,51 @@ export const Body = () => {
     setFilterData(dataRes);
   };
 
-  return (
-    <div className="body">
-      {data?.length === 0 ? (
-        <Shimmer />
-      ) : (
-        <>
-          <div className="filter">
-            <div className="search">
-              <input
-                type="text"
-                className="text-search"
-                value={searchText}
-                onChange={(e) => handleChange(e)}
-              ></input>
-              <button className="button-search" onClick={handleSearch}>
-                Search
+  const onlineStatus = useOnlineStatus();
+  if (onlineStatus === false) return (<p>OOps , Looks like you are offline</p>);
+
+  console.log("sdafsfsdf",onlineStatus);
+  
+  
+    return (
+      <div className="body">
+        {data?.length === 0 ? (
+          <Shimmer />
+        ) : (
+          <>
+            <div className="filter">
+              <div className="search">
+                <input
+                  type="text"
+                  className="text-search"
+                  value={searchText}
+                  onChange={(e) => handleChange(e)}
+                ></input>
+                <button className="button-search" onClick={handleSearch}>
+                  Search
+                </button>
+              </div>
+              <button className="filter-top" onClick={handleClick}>
+                Top Rated Restraurants
               </button>
             </div>
-            <button className="filter-top" onClick={handleClick}>
-              Top Rated Restraurants
-            </button>
-          </div>
-          <div className="res-container">
-            {filterData?.map((item) => (
-              <CardComponent key={item?.card?.card?.info?.id} resData={item} />
-            ))}
-          </div>
-        </>
-      )}
-    </div>
-  );
+            <div className="res-container">
+              {filterData?.map((item) => (
+                <>
+                  <Link
+                    to={"/restraurantDetails/" + item?.card?.card?.info?.id}
+                    key={item?.card?.card?.info?.id}
+                  >
+                    <CardComponent
+                      key={item?.card?.card?.info?.id}
+                      resData={item}
+                    />
+                  </Link>
+                </>
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+    );
 };
