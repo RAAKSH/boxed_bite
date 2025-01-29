@@ -1,4 +1,4 @@
-import { CardComponent } from "./CardComponent";
+import { CardComponent, withPromotedCard } from "./CardComponent";
 import { useEffect, useState } from "react";
 import { Shimmer } from "./Shimmer";
 import { Link } from "react-router-dom";
@@ -8,6 +8,9 @@ export const Body = () => {
   const [data, setData] = useState([]);
   const [filterData, setFilterData] = useState([]);
   const [searchText, setSearchText] = useState("");
+
+  const PromotedCard = withPromotedCard(CardComponent);
+
   const fetchData = async () => {
     const data = await fetch(
       "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.907852&lng=77.4763541&collection=83639&tags=layout_CCS_Biryani&sortBy=&filters=&type=rcv2&offset=0&page_type=null"
@@ -26,9 +29,10 @@ export const Body = () => {
 
   const handleClick = () => {
     const filteredData = data?.filter(
-      (item) => item?.card?.card?.info?.avgRating > 4.5
+      (item) => item?.card?.card?.info?.avgRating >= 4
     );
-    setData(filteredData);
+
+    setFilterData(filteredData);
   };
 
   const handleChange = (e) => {
@@ -84,10 +88,18 @@ export const Body = () => {
                   to={"/restraurantDetails/" + item?.card?.card?.info?.id}
                   key={item?.card?.card?.info?.id}
                 >
-                  <CardComponent
-                    key={item?.card?.card?.info?.id}
-                    resData={item}
-                  />
+                  {console.log(item?.card?.card?.info?.promoted)}
+                  {item?.card?.card?.info?.promoted  ? (
+                    <PromotedCard
+                      resData={item}
+                      key={item?.card?.card?.info?.id}
+                    />
+                  ) : (
+                    <CardComponent
+                      key={item?.card?.card?.info?.id}
+                      resData={item}
+                    />
+                  )}
                 </Link>
               </>
             ))}

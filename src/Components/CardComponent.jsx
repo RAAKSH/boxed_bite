@@ -18,4 +18,17 @@ export const CardComponent = (props) => {
   );
 };
 
+export const withPromotedCard = (CardComponent) => {
+  return (props) => {
+    return (
+      <div className="relative">
+        <label className="absolute top-1 left-1 bg-black text-white rounded-lg px-2 py-1 z-10">
+          Promoted
+        </label>
+        <CardComponent {...props} />
+      </div>
+    );
+  };
+};
+
 export default CardComponent;

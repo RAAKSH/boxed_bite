@@ -5,9 +5,9 @@ import useOnlineStatus from "../Utils/useOnlineStatus";
 export const Header = () => {
   const onlineStatus = useOnlineStatus();
   return (
-    <div className="h-[110px]  flex justify-between bg-blue-100 shadow-xl">
-      <div className="h-[110px] flex">
-      <img src={logo} className="h-[110px] w-[150px]  object-cover" />
+    <div className="h-[100px]  flex justify-between bg-blue-100 shadow-xl">
+      <div className="h-[100px] flex">
+      <img src={logo} className="h-[100px] w-[150px]  object-cover" />
       </div>
       <div className="flex ">
         <ul className="flex p-4 m-4 items-center">

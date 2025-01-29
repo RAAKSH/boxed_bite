@@ -1,27 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Shimmer } from "./Shimmer";
 import { useParams } from "react-router-dom";
-import { MENU } from "../Utils/constants";
 import { useRestaurantMenu } from "../Utils/useRestraurantMenu";
+import RestaurantCategory from "./RestaurantCategory";
 
 const RestraurantsMenu = () => {
-  //const [menuData, setMenuData] = useState(null);
   const { id } = useParams();
 
-  //   console.log("asdasd", id);
-
-  //   useEffect(() => {
-  //     fetchMenu();
-  //   }, []);
-
-  //   const fetchMenu = async () => {
-  //     const data = await fetch(MENU + id + "&catalog_qa=undefined&query=Biryani");
-  //     const json = await data?.json();
-
-  //     setMenuData(json?.data);
-  //   };
-
-  const menuData  = useRestaurantMenu(id);
+  const menuData = useRestaurantMenu(id);
   if (menuData === null) return <Shimmer />;
 
   const { name, cuisines, costForTwoMessage } =
@@ -30,26 +16,30 @@ const RestraurantsMenu = () => {
   const { itemCards } =
     menuData?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card
       ?.card;
-  console.log("=======", itemCards);
 
-  console.log("=======", menuData);
+  const categories =
+    menuData?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards?.filter(
+      (e) =>
+        e.card?.card["@type"] ===
+        "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+    );
+
+  console.log("categories", categories);
 
   return (
     <div>
       {
-        <>
-          <h1 className="menu-styles">{name}</h1>
-          <p>
+        <div className="text-center">
+          <h1 className="font-bold my-6 text-2xl">{name}</h1>
+          <p className="font-bold text-lg">
             {cuisines?.join(" , ")}- {costForTwoMessage}
           </p>
           <ul>
-            {itemCards?.map((item) => (
-              <li key={item?.card?.info?.id}>
-                {item?.card?.info?.name}- {item?.card?.info?.price / 100}
-              </li>
+            {categories?.map((item) => (
+              <RestaurantCategory key={item?.card?.card} data={item?.card?.card} />
             ))}
-          </ul>{" "}
-        </>
+          </ul>
+        </div>
       }
     </div>
   );
