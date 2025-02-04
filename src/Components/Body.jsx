@@ -88,8 +88,7 @@ export const Body = () => {
                   to={"/restraurantDetails/" + item?.card?.card?.info?.id}
                   key={item?.card?.card?.info?.id}
                 >
-                  {console.log(item?.card?.card?.info?.promoted)}
-                  {item?.card?.card?.info?.promoted  ? (
+                  {item?.card?.card?.info?.promoted ? (
                     <PromotedCard
                       resData={item}
                       key={item?.card?.card?.info?.id}

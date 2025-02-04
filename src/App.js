@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from "react";
+import React, { lazy, Suspense, useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 import { Header } from "./Components/Header";
 import { Body } from "./Components/Body";
@@ -7,7 +7,13 @@ import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import Error from "./Components/Error";
 //import Contact from "./Components/Contact";
 import RestraurantsMenu from "./Components/RestraurantsMenu";
-import { Shimmer } from './Components/Shimmer';
+import { Shimmer } from "./Components/Shimmer";
+import UserContext from "./Utils/UserContext";
+import Footer from "./Components/Footer";
+import appStore from "./Utils/AppStore";
+import { Provider } from "react-redux";
+import Cart from "./Components/Cart";
+import PlaceOrder from "./Components/PlaceOrder";
 
 // const heading = React.createElement(
 //   "h1",
@@ -33,7 +39,7 @@ import { Shimmer } from './Components/Shimmer';
 //   ])
 // );
 
-// console.log("abc", heading1);
+
 
 // const root = ReactDOM.createRoot(document.getElementById("parent"));
 // root.render(heading1);
@@ -50,12 +56,27 @@ import { Shimmer } from './Components/Shimmer';
 
 const ContactComponent = lazy(() => import("./Components/Contact"));
 
-const AppLayout = () => (
-  <div className="app">
-    <Header />
-    <Outlet />
-  </div>
-);
+const AppLayout = () => {
+  const [userName, setUserName] = useState("");
+
+  useEffect(() => {
+    const data = {
+      name: "Raksha",
+    };
+    setUserName(data?.name);
+  }, []);
+  return (
+    <Provider store={appStore}>
+      <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
+        <div className="app bg-red-50 h-full">
+          <Header />
+          <Outlet />
+          <Footer />
+        </div>
+      </UserContext.Provider>
+    </Provider>
+  );
+};
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -88,10 +109,26 @@ const appRouter = createBrowserRouter([
         element: <RestraurantsMenu />,
         errorElement: <Error />,
       },
+      {
+        path: "/cart",
+        element: (
+          <Suspense fallback={<h1>Loading</h1>}>
+            <Cart />
+          </Suspense>
+        ),
+       
+      },
+      {
+        path: "/placeOrder", 
+        element: (
+          <Suspense fallback={<h1>Loading...</h1>}>
+            <PlaceOrder />
+          </Suspense>
+        ),
+      },
+     
     ],
   },
 ]);
-
-//root.render(<AppLayout />);
 
 root.render(<RouterProvider router={appRouter} />);

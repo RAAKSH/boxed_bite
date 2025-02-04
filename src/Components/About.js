@@ -22,11 +22,11 @@ class About extends Component {
   render() {
     return (
       <div>
-        <User
+        {/* <User
           name={"Raksha"}
           location={"Bangalore"}
           contact={"rakshac29@gmail.com"}
-        />
+        /> */}
         <UserF />
       </div>
     );
