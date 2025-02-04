@@ -18,3 +18,6 @@
 - Diagnostic
 - Error jandling
 - Tree shaking
+
+#GIF of working 
+https://jam.dev/c/5e1cc68d-7e21-405f-8479-a49646de1210
