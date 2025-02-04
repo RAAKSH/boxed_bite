@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { clearCart } from "../Utils/Slices/cartSlice";
@@ -7,6 +8,7 @@ const PlaceOrder = () => {
   const resData = useSelector((store) => store?.restraurant?.resto);
   const cartData = useSelector((store) => store?.cart?.items);
   const dispatch = useDispatch();
+  const [modalOpen, setModalOpen] = useState(false);
 
   const resInfo = resData[0];
   const navigate = useNavigate();
@@ -15,6 +17,10 @@ const PlaceOrder = () => {
     navigate(-1);
   };
   const handlePlaceOrder = () => {
+    setModalOpen(true);
+  };
+  const handleCloseModal = () => {
+    setModalOpen(false);
     navigate("/");
     dispatch(clearCart());
   };
@@ -120,6 +126,28 @@ const PlaceOrder = () => {
           </div>
         </div>
       </div>
+
+      {modalOpen && (
+        <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-red-200 p-6 rounded-lg shadow-lg w-[400px] border-2 border-red-400">
+            {" "}
+            <h3 className="text-lg font-bold text-center">
+              Hurray 😋,Your Order has been Placed 🥗Bon Appetite🍛
+            </h3>
+            <p className="text-center mt-2 italic">
+              Thank You for Ordering with us
+            </p>
+            <div className="mt-4 flex justify-center">
+              <button
+                onClick={handleCloseModal}
+                className="px-4 py-2 bg-blue-500 text-white rounded-lg"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };
