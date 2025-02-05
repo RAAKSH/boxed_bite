@@ -12,11 +12,16 @@ const RestraurantsMenu = () => {
   const dispatch = useDispatch();
 
   const menuData = useRestaurantMenu(id);
-  if (menuData === null) return <Shimmer />;
+  if (menuData === null)
+    return (
+      <div className="min-h-screen flex flex-col">
+        <Shimmer className="flex-grow" />
+      </div>
+    );
 
   const { name, cuisines, costForTwoMessage, totalRatingsString, areaName } =
     menuData?.cards[2]?.card?.card?.info;
-    dispatch(getResInfo(menuData?.cards[2]?.card?.card?.info))
+  dispatch(getResInfo(menuData?.cards[2]?.card?.card?.info));
 
   const categories =
     menuData?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards?.filter(

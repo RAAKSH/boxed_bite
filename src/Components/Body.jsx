@@ -52,9 +52,9 @@ export const Body = () => {
   if (onlineStatus === false) return <p>OOps , Looks like you are offline</p>;
 
   return (
-    <div className="body">
+    <div className="min-h-screen flex flex-col">
       {data?.length === 0 ? (
-        <Shimmer />
+        <Shimmer  className="flex-grow"/>
       ) : (
         <>
           <div className="filter flex">
@@ -81,7 +81,7 @@ export const Body = () => {
               </button>
             </div>
           </div>
-          <div className="p-1 flex flex-wrap">
+          <div className="p-1 flex flex-wrap  gap-4 pb-20">
             {filterData?.map((item) => (
               <>
                 <Link

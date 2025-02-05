@@ -27,9 +27,9 @@ function UserF() {
   }, []);
 
   return (
-    <>
+    <div className="min-h-screen flex flex-col">
       {!data || Object.keys(data).length === 0 ? (
-        <Shimmer />
+        <Shimmer  className="flex-grow"/>
       ) : (
         <div className="flex mx-auto my-4 p-4 w-full">
           <div className="w-[520px] flex items-center justify-center p-2 ">
@@ -53,7 +53,7 @@ function UserF() {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }
 

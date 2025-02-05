@@ -31,7 +31,7 @@ const PlaceOrder = () => {
   }, 0);
 
   return (
-    <>
+    <div className="min-h-screen flex flex-col">
       <div className="w-8/12 mx-auto my-4 p-4 rounded-lg">
         <div className="flex justify-between items-center">
           <h1 className="font-bold my-6 text-2xl">{"Checkout"}</h1>
@@ -48,7 +48,8 @@ const PlaceOrder = () => {
                   ? "bg-gray-300 text-gray-500 cursor-not-allowed"
                   : "bg-green-500 text-white hover:bg-green-600"
               }`}
-              onClick={handlePlaceOrder}
+              onClick={cartData?.length === 0 ? undefined : handlePlaceOrder} 
+              disabled={cartData?.length === 0} 
             >
               Place Order
             </button>
@@ -148,7 +149,7 @@ const PlaceOrder = () => {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

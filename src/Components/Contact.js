@@ -14,9 +14,8 @@ const Contact = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      setLoading(false)
+      setLoading(false);
     }, 1000);
-    
   }, []);
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -41,9 +40,9 @@ const Contact = () => {
     (value) => value.trim() !== ""
   );
   return (
-    <>
-      {loading? (
-        <Shimmer />
+    <div className="min-h-screen flex flex-col">
+      {loading ? (
+        <Shimmer className="flex-grow" />
       ) : (
         <div className="flex mx-auto my-4 p-4 w-full">
           <div className="w-[650px] flex items-center justify-center p-2 ">
@@ -145,7 +144,7 @@ const Contact = () => {
           )}
         </div>
       )}
-    </>
+    </div>
   );
 };
 

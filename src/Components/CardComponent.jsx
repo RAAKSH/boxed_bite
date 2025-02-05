@@ -22,9 +22,9 @@ export const withPromotedCard = (CardComponent) => {
   return (props) => {
     return (
       <div className="relative">
-        <label className="absolute top-1 left-1 bg-black text-white rounded-lg px-2 py-1 z-10">
+        <div className="absolute  bg-black text-white rounded-lg px-2 py-1 z-20">
           Promoted
-        </label>
+        </div>
         <CardComponent {...props} />
       </div>
     );
