@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-//import contactUs from "../assets/contact_us.jpg";
-//import { Shimmer } from "./Shimmer";
+import contactUs from "../../public/contact_us.jpg";
+import { Shimmer } from "./Shimmer";
 
 const Contact = () => {
   const [contactInfo, setContactInfo] = useState({
@@ -40,17 +40,17 @@ const Contact = () => {
     (value) => value.trim() !== ""
   );
   return (
-    // <div className="min-h-screen flex flex-col">
-    //   {loading ? (
-    //     <Shimmer className="flex-grow" />
-    //   ) : (
+    <div className="min-h-screen flex flex-col">
+      {loading ? (
+        <Shimmer className="flex-grow" />
+      ) : (
         <div className="flex mx-auto my-4 p-4 w-full">
           <div className="w-[650px] flex items-center justify-center p-2 ">
-            {/* <img
+            <img
               src={contactUs}
               alt={"Profile_image"}
               className="w-full h-full object-cover shadow-md rounded-md"
-            /> */}
+            />
           </div>
 
           <div className="w-2/2 ml-[100px]  px-3 mt-[50px] border">
@@ -143,8 +143,8 @@ const Contact = () => {
             </div>
           )}
         </div>
-    //   )}
-    // </div>
+      )}
+    </div>
   );
 };
 
