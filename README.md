@@ -20,4 +20,4 @@
 - Tree shaking
 
 #GIF of working 
-https://jam.dev/c/5e1cc68d-7e21-405f-8479-a49646de1210
+https://jam.dev/c/2382c8f6-e49d-444f-93e0-fdbb0e5ca34e
