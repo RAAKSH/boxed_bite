@@ -4,7 +4,7 @@ export const CardComponent = (props) => {
   const { info } = props?.resData?.card?.card;
 
   return (
-    <div className="m-2 p-2 w-[250px] h-[380px] bg-gray-100 hover:bg-slate-300 border border-solid rounded-md shadow-lg transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl flex flex-col">
+    <div className="m-2 p-2 w-[250px] h-[350px] bg-gray-100 hover:bg-slate-300 border border-solid rounded-md shadow-lg transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl flex flex-col">
     <img
       src={IMAGE_URL + info?.cloudinaryImageId}
       alt="res-logo"
